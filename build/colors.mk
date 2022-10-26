@@ -37,6 +37,7 @@ ECHO=/bin/echo -e
 ECHON=/bin/echo -ne
 CAT=/bin/cat
 RM=/bin/rm
+MV=/bin/mv
 
 #-----------------------------------------------------------------------------------------
 # Function used to display a Makefile header in color

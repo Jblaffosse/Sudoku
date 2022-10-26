@@ -86,6 +86,9 @@ ifneq ($(EXEC),)
 	else $(ECHO) $(OK_STRING);\
 	fi;
 	@$(RM) -f temp.errors temp.log
+	$(call MyMsg,|__INFO: Executable $(EXEC) correctly generated, move it...)
+	@$(MV) $(EXEC) ..
+	@$(ECHO) $(OK_STRING)
 else
 #-----------------------------------------------------------------------------------------
 # Target used to build a library
