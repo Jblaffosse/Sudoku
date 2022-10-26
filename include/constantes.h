@@ -3,6 +3,9 @@
 
 /* Define constant(s) used by the Sudoku library */
 
+/* Print log message, used for debug */
+/* #define DEBUG_MSG 1 */
+
 /* Row and column sizes */
 #define ROW_NUMBER ((unsigned int) 9U)
 #define COLUMN_NUMBER ((unsigned int) 9U)

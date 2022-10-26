@@ -46,13 +46,14 @@ unsigned int Sudoku_Grid::compute_random_number(vector<unsigned int> list_number
     index = 0U;
     random_number = 0U;
     
-    /* JBL DEBUG 
+#ifdef DEBUG_MSG
     cout << "Try to find random number, here the list of forbidden numbers: " << endl;
     for(index = 0U; index < list_numbers.size(); index++)
     {
         cout << list_numbers.at(index) << " ";
     }
-    cout << endl; */
+    cout << endl;
+#endif /* End of debug message(s) */
     
     
     /* Until the random number is not correctly computed */
@@ -106,8 +107,9 @@ void Sudoku_Grid::check_unicity_one_square(vector<unsigned int>& list_numbers, u
             {
                 list_numbers.push_back(p_grid[index_row][index_column]);
             
-                /* JBL DEBUG 
-                cout << "New value found: " << p_grid[index_row][index_column] << endl; */
+#ifdef DEBUG_MSG
+                cout << "New value found: " << p_grid[index_row][index_column] << endl;
+#endif /* End of debug message(s) */
             
             }
             
@@ -260,8 +262,9 @@ void Sudoku_Grid::find_impossible_numbers(vector<unsigned int>& list_numbers, un
     number_verification = false;
     vector_size = 0U;
     
-    /* JBL DEBUG 
-    cout << "Find impossible numbers at (" << row_index << ", " << column_index << ")" << endl; */
+#ifdef DEBUG_MSG
+    cout << "Find impossible numbers at (" << row_index << ", " << column_index << ")" << endl;
+#endif /* End of debug message(s) */
     
     /* Clear all the values of the vector */
     vector_size = list_numbers.size();
@@ -275,8 +278,9 @@ void Sudoku_Grid::find_impossible_numbers(vector<unsigned int>& list_numbers, un
     for(index = 0U; index < ROW_NUMBER; index++)
     {
     
-        /* JBL DEBUG 
-        cout << "Find impossible value for row: " << index << endl; */
+#ifdef DEBUG_MSG
+        cout << "Find impossible value for row: " << index << endl;
+#endif /* End of debug message(s) */
     
         /* Verify if the number was already present inside the list */
         number_verification = check_unicity(list_numbers, p_grid[index][column_index]);
@@ -285,8 +289,9 @@ void Sudoku_Grid::find_impossible_numbers(vector<unsigned int>& list_numbers, un
         {
             list_numbers.push_back(p_grid[index][column_index]);
             
-            /* JBL DEBUG 
-            cout << "New value found: " << p_grid[index][column_index] << endl; */
+#ifdef DEBUG_MSG
+            cout << "New value found: " << p_grid[index][column_index] << endl;
+#endif /* End of debug message(s) */
         }
     }
     
@@ -294,8 +299,9 @@ void Sudoku_Grid::find_impossible_numbers(vector<unsigned int>& list_numbers, un
     for(index = 0U; index < COLUMN_NUMBER; index++)
     {
     
-        /* JBL DEBUG 
-        cout << "Find impossible value for column: " << index << endl; */
+#ifdef DEBUG_MSG
+        cout << "Find impossible value for column: " << index << endl;
+#endif /* End of debug message(s) */
         
         /* Verify if the number was already present inside the list */
         number_verification = check_unicity(list_numbers, p_grid[row_index][index]);
@@ -304,8 +310,9 @@ void Sudoku_Grid::find_impossible_numbers(vector<unsigned int>& list_numbers, un
         {
             list_numbers.push_back(p_grid[row_index][index]);
             
-            /* JBL DEBUG 
-            cout << "New value found: " << p_grid[row_index][index] << endl; */
+#ifdef DEBUG_MSG
+            cout << "New value found: " << p_grid[row_index][index] << endl;
+#endif /* End of debug message(s) */
         }
     }
     
@@ -377,9 +384,10 @@ void Sudoku_Grid::initialize_sudoku_grid(void)
     random_number = 0U;
     sudoko_finish = false;
     
-    /* JBL DEBUG */
+#ifdef DEBUG_MSG
     unsigned int computation;
     computation = 0U;
+#endif /* End of debug message(s) */
     
     do
     {
@@ -388,9 +396,10 @@ void Sudoku_Grid::initialize_sudoku_grid(void)
         sudoko_finish = true;
         clear_sudoku_grid();
         
-        /* JBL DEBUG */
+#ifdef DEBUG_MSG
         computation++;
         cout << "Start computing ... (" << computation << ")" << endl;
+#endif /* End of debug message(s) */
     
         /* Parse all the rows */
         for(row_index = 0U; row_index < ROW_NUMBER; row_index++)
@@ -409,12 +418,14 @@ void Sudoku_Grid::initialize_sudoku_grid(void)
                 {
                     sudoko_finish = false;
                     
-                    /* JBL DEBUG */
+#ifdef DEBUG_MSG
                     cout << "Error found..." << endl;
+#endif /* End of debug message(s) */
                 }
                 
-                /* JBL DEBUG 
-                cout << "Random number found: " << random_number << endl << "##############" << endl; */
+#ifdef DEBUG_MSG
+                cout << "Random number found: " << random_number << endl << "##############" << endl;
+#endif /* End of debug message(s) */
                 
                 /* Affect the random number */
                 p_grid[row_index][column_index] = random_number;

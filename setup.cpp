@@ -17,7 +17,7 @@ int main()
     /* Initialize variable(s) */
     l_grid.initialize_sudoku_grid();
     
-    cout << "Printing sudoku library:" << endl; 
+    cout << "Printing sudoku grid:" << endl; 
     
     l_grid.print_sudoku_grid();
     
