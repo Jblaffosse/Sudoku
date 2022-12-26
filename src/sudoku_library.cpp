@@ -30,6 +30,57 @@ void Sudoku_Grid::clear_sudoku_grid(void)
     
 }
 
+/* Find last number from a list of 8 unique numbers */
+unsigned int Sudoku_Grid::find_last_number(vector<unsigned int> list_numbers)
+{
+    /* Declare variables */
+    unsigned int output_numbers;
+    bool missing_value_found;
+    bool number_check;
+    unsigned int index;
+    
+    /* Initialize variables */
+    output_numbers = 0U;
+    missing_value_found = false;
+    number_check = false;
+    index = 0U;
+    
+    /* Verify if the input vector has the correct size */
+    if(list_numbers.size() == 8)
+    {
+        /* Parse all the values in order to find the missing number */
+        while(missing_value_found == false)
+        {
+            /* Initialize the possible missing value */
+            output_numbers++;
+            number_check = false;
+            
+            /* Parse all the input numbers and verify if the value is present */
+            for(index = 0U; index < list_numbers.size(); index++)
+            {
+                if(list_numbers[index] == output_numbers)
+                {
+                    number_check = true;
+                }
+            }
+            
+            /* Verify if the number was found, if not the missing value is found */
+            if(number_check == false)
+            {
+                missing_value_found = true;
+            }
+        }
+    }
+    else
+    {
+        /* Input vector not correct, return 0 */
+        output_numbers = 0U;
+    }
+    
+    /* Return last number */
+    return output_numbers;
+}
+
 /* Verify if the input number is not already present inside the given vector */
 unsigned int Sudoku_Grid::compute_random_number(vector<unsigned int> list_numbers)
 {
@@ -54,27 +105,36 @@ unsigned int Sudoku_Grid::compute_random_number(vector<unsigned int> list_number
     }
     cout << endl;
 #endif /* End of debug message(s) */
-    
-    
-    /* Until the random number is not correctly computed */
-    while( (number_found == false) && (list_numbers.size() != ROW_NUMBER) )
+
+    /* When all the numbers have been given except one */
+    if(list_numbers.size() == 8)
     {
-        /* Find one random number inside [1; 9] */
-        random_number = (unsigned int) distribution(seed_gen);
-        
-        /* By default, we can say that the random number is not present */
-        number_found = true;
-        
-        /* Parse all the values of the input vector */
-        for(index = 0U; index < list_numbers.size(); index++)
+        /* Retrieve the last number */
+        random_number = find_last_number(list_numbers);
+    }
+    else
+    {
+        /* Until the random number is not correctly computed */
+        while( (number_found == false) && (list_numbers.size() != ROW_NUMBER) )
         {
-            /* Check if the input number is already present inside the vector */
-            if(list_numbers.at(index) == random_number)
+            /* Find one random number inside [1; 9] */
+            random_number = (unsigned int) distribution(seed_gen);
+            
+            /* By default, we can say that the random number is not present */
+            number_found = true;
+            
+            /* Parse all the values of the input vector */
+            for(index = 0U; index < list_numbers.size(); index++)
             {
-                number_found = false;
+                /* Check if the input number is already present inside the vector */
+                if(list_numbers.at(index) == random_number)
+                {
+                    number_found = false;
+                }
             }
+        
         }
-    
+        
     }
     
     return random_number;
@@ -389,6 +449,8 @@ void Sudoku_Grid::initialize_sudoku_grid(void)
     computation = 0U;
 #endif /* End of debug message(s) */
     
+    /* Compute random numbers until all the grid is filled */
+    /* Otherwise restart from the beginning */
     do
     {
         
